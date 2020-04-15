@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View,Text, StyleSheet,FlatList} from 'react-native';
-
+import Pessoas from './src/Pessoas';
 class App extends Component{
   constructor (props){
     super(props);
@@ -21,7 +21,7 @@ class App extends Component{
         <FlatList
         data={this.state.feed} // lista que vai receber
         keyExtractor={(item) => item.id}
-        renderItem={ ({item}) => <Pessoa data={item}/>} //renderiza a lista
+        renderItem={ ({item}) => <Pessoas data={item}/>} //renderiza a lista
         
         
         />
@@ -31,30 +31,9 @@ class App extends Component{
 }
 const styles = StyleSheet.create({
   container:{
-    flex:1,
-    
-  },
-  AreaPessoa:{
-    backgroundColor: '#222',
-    height: 200,
-    marginBottom: 15
-  },
-  TextoPessoa:{
-    color: '#FFF',
-    fontSize: 20
+    flex:1,    
   }
 });
 
 export default App;
 
-class Pessoa extends Component{
-  render(){
-    return(
-      <View style={styles.AreaPessoa}>
-        <Text style={styles.TextoPessoa}> {this.props.data.nome}</Text>
-        <Text style={styles.TextoPessoa}> {this.props.data.idade}</Text>
-        <Text style={styles.TextoPessoa}> {this.props.data.email}</Text>
-      </View>
-    );
-  }
-}
