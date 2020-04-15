@@ -1,37 +1,30 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet,TextInput,Button} from 'react-native';
+import {View,Text, StyleSheet,FlatList} from 'react-native';
 
 class App extends Component{
-  constructor(props){
+  constructor (props){
     super(props);
     this.state = {
-      nome: '' ,
-      input: ''
+      feed:[
+        {id: '1',nome: 'Andrews', idade: 20,email:'andrews@gmail.com'},
+        {id: '2',nome: 'Lucas', idade: 23,email:'lucas@gmail.com'},
+        {id: '3',nome: 'Renato', idade: 24,email:'renato@gmail.com'},
+        {id: '4',nome: 'Paulo', idade: 14,email:'paulo@gmail.com'},
+        {id: '5',nome: 'Jose', idade: 10,email:'jose@gmail.com'}
+      ]
     };
-
-
-    this.entrar = this.entrar.bind(this);
   }
-  entrar(){
-    if (this.state.input === ''){
-      alert("Digite seu nome! ")
-      return;
-    }
-    this.setState({nome:'Bem vindo '+this.state.input})
-  }
-  
 
   render(){
     return(
       <View style ={styles.container}>
-        <TextInput
-        style={styles.input}
-        placeholder='Digite seu nome'
-        underlineColorAndroid="transparent"
-        onChangeText={(texto)=>this.setState({input:texto})}
+        <FlatList
+        data={this.state.feed} // lista que vai receber
+        keyExtractor={(item) => item.id}
+        renderItem={ ({item}) => <Pessoa data={item}/>} //renderiza a lista
+        
+        
         />
-        <Button title="Entrar" onPress={this.entrar}/>
-        <Text style={styles.texto}> {this.state.nome}</Text>
       </View>
     );
   }
@@ -39,20 +32,29 @@ class App extends Component{
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    justifyContent:'center'
-  },
-  input:{
-    height: 60,
-    borderWidth:1,
-    borderColor: '#222',
-    margin:10,
-    fontSize:20,
     
   },
-  texto:{
-    textAlign:'center',
-    fontSize:25
+  AreaPessoa:{
+    backgroundColor: '#222',
+    height: 200,
+    marginBottom: 15
+  },
+  TextoPessoa:{
+    color: '#FFF',
+    fontSize: 20
   }
 });
 
 export default App;
+
+class Pessoa extends Component{
+  render(){
+    return(
+      <View style={styles.AreaPessoa}>
+        <Text style={styles.TextoPessoa}> {this.props.data.nome}</Text>
+        <Text style={styles.TextoPessoa}> {this.props.data.idade}</Text>
+        <Text style={styles.TextoPessoa}> {this.props.data.email}</Text>
+      </View>
+    );
+  }
+}
